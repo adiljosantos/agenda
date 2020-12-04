@@ -7,7 +7,7 @@ class Evento(models.Model):  # Criamos a classe que cria a tabela
     titulo = models.CharField(max_length=100)   # Criamos o campo titulo do tipo char  com tamaho 100
     descricao = models.TextField(blank=True, null=True) # Criamos o campo descrição do tipo podendo ser nulo (em branco)
     data_evento = models.DateTimeField(verbose_name='Data do Evento') # Criamos o campo data do evento do tipo Date
-    data_criacao =models.DateTimeField(auto_now=True) # Criamos o campo data da criacao com a data corrente
+    data_criacao = models.DateTimeField(auto_now=True) # Criamos o campo data da criacao com a data corrente
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)  # Se o usuario dono do evento for deletado todos os demais registros referentes a ele serao apagados
 
     class Meta:

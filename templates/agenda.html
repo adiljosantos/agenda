@@ -4,6 +4,10 @@
 
     <h2>Agendamentos</h2>
 
+    <a href="evento/">
+        <button type="button">Novo Evento</button>
+    </a><br><br>
+
     {% for evento in eventos %}
         <b> {{ evento.titulo }} - {{ evento.descricao }} - {{ evento.get_data_evento }} </b><br>
     {% endfor %}
