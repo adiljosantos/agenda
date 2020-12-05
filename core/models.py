@@ -18,3 +18,6 @@ class Evento(models.Model):  # Criamos a classe que cria a tabela
 
     def get_data_evento(self):
         return self.data_evento.strftime('%d/%m/%Y %H:%M')
+
+    def get_data_imput_evento(self):
+        return self.data_evento.strftime('%Y-%m-%dT%H:%M')
