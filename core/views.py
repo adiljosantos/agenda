@@ -3,6 +3,8 @@ from core.models import Evento
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from datetime import datetime
+from django.http.response import Http404
 
 
 # Create your views here.
@@ -32,8 +34,11 @@ def submit_login(request):
 @login_required(login_url='/login/')  # Requer login para acessar a pagina
 def lista_eventos(request):
     usuario = request.user
-#   evento = Evento.objects.all()
+    data_atual = datetime.now() # Pegando a data atual
     evento = Evento.objects.filter(usuario=usuario)
+                                                        # __gt equivale a > maior que no python ( faz com que os
+                                                        # eventos mostrados sejam somente maiores que a data atual
+                                                        # __lt equivale a < menor que no python.
     dados = {'eventos': evento}
     return render(request, 'agenda.html', dados)
 
@@ -78,7 +83,12 @@ def submit_evento(request):
 @login_required(login_url='/login/')
 def delete_evento(request, id_evento):
     usuario = request.user
-    evento = Evento.objects.get(id=id_evento)
+    try:
+        evento = Evento.objects.get(id=id_evento)
+    except Exception:
+        raise Http404()
     if usuario == evento.usuario:
         evento.delete()
+    else:
+        raise Http404()
     return redirect('/')
